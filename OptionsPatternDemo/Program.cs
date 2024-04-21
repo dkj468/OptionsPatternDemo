@@ -12,8 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services
-    .Configure<FileOptions>(builder.Configuration.GetSection("file"));
+//builder.Services
+//    .Configure<FileOptions>(builder.Configuration.GetSection("file"));
 builder.Services
        .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection("file"));
 
