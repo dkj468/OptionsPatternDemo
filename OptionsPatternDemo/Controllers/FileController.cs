@@ -19,9 +19,10 @@ namespace API.Controllers
         public IActionResult GetFileConfig_IConfiguration() {
             var fileSize = _config.GetValue<string>("file:maxSize");
             var fileType = _config.GetValue<string>("file:fileType");
-            var canModify = _config.GetValue<bool>("file:canModify"); 
-            
-            return Ok(new { fileSize = fileSize, fileType = fileType, canModify = canModify });
+            var canModify = _config.GetValue<bool>("file:canModify");
+            var maxFileCount = _config.GetValue<int>("file:maxFileCount");
+             
+            return Ok(new { fileSize = fileSize, fileType = fileType, canModify = canModify, maxFileCount = maxFileCount });
         }
 
         // get config data using Options Pattern
@@ -30,8 +31,9 @@ namespace API.Controllers
             var fileSize = _fileOptions.MaxSize;
             var fileType = _fileOptions.FileType;
             var canModify = _fileOptions.CanModify;
+            var maxFileCount = _fileOptions.MaxFileCount;
 
-            return Ok(new { fileSize = fileSize, fileType = fileType, canModify = canModify });
+            return Ok(new { fileSize = fileSize, fileType = fileType, canModify = canModify, maxFileCount = maxFileCount });
         }
     }
 }
