@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen();
 //builder.Services
 //    .Configure<FileOptions>(builder.Configuration.GetSection("file"));
 builder.Services
-       .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection("file"));
+       .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection("file"))
+       .ValidateDataAnnotations();
 
 
 
