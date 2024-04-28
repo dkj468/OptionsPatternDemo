@@ -1,9 +1,11 @@
 using API.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using OptionsPatternDemo.Options;
 using FileOptions = API.Options.FileOptions;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // add controllers 
 builder.Services.AddControllers();
@@ -11,12 +13,31 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Configuration.AddCommandLine(args);
+
+
+//with custom validation logic
 
 //builder.Services
-//    .Configure<FileOptions>(builder.Configuration.GetSection("file"));
+//       .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection("file"))
+//       .ValidateDataAnnotations()
+//       .Validate(fileOptions => {
+//           if (string.IsNullOrEmpty(fileOptions.FileType))
+//           {
+//               return false;
+//           }
+//           return true;
+//       });
+
+//validate on start-up
 builder.Services
-       .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection("file"))
-       .ValidateDataAnnotations();
+       .AddOptions<FileOptions>().Bind(builder.Configuration.GetSection(FileOptions.Key))
+       .ValidateDataAnnotations()
+       .ValidateOnStart();
+
+// using IConfigureOptions -- manage other than appsettings configs
+//builder.Services.ConfigureOptions<FileOptionsSetup>();
+
 
 
 

@@ -11,5 +11,7 @@ namespace API.Options
         public bool CanModify { get; set; }
         [Range(minimum:2, maximum:6)]
         public int MaxFileCount { get; set; }
+        public string FileMode { get; set; } = "read"; // from env variables
+        public string version { get; set; } // from command line
     }
 }
